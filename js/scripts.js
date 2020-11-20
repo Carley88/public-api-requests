@@ -1,12 +1,22 @@
 const gallery = document.getElementById('gallery');
+const cards = document.getElementsByClassName('card');
 
-fetch("https://randomuser.me/api/?results=12")
+
+fetch("https://randomuser.me/api/?results=1&nat=us")
   .then(response => response.json())
   .then(data => {
     const employees = data.results
     employees.forEach((employee) => {
-      generateGallery(employee)
+      generateGallery(employee);
+      generateModal(employee);
     });
+    // const cards = document.querySelectorAll(".card");
+    // cards.forEach(card => {
+    //   card.addEventListener('click', (event) => {
+    //     console.log(event.target);
+    //     console.log(event.currentTarget.id);
+    //   })
+    // })
   });
 
 function generateGallery(data){
@@ -23,4 +33,24 @@ function generateGallery(data){
     </div>`
 
   gallery.insertAdjacentHTML('beforeEnd', galleryHTML);
+}
+
+function generateModal(data){
+  const dob = data.dob.date
+  const modalHTML = `
+    <div class="modal-container">
+      <div class="modal">
+          <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+          <div class="modal-info-container">
+              <img class="modal-img" src=${data.picture.large} alt="profile picture">
+              <h3 id="name" class="modal-name cap">${data.name.first} ${data.name.last}</h3>
+              <p class="modal-text">${data.email}</p>
+              <p class="modal-text cap">${data.location.city}</p>
+              <hr>
+              <p class="modal-text">${data.phone}</p>
+              <p class="modal-text">${data.location.street.number} ${data.location.street.name}, ${data.location.state}, ${data.location.postcode}</p>
+              <p class="modal-text">Birthday: ${data.dob.date}</p>
+          </div>
+    </div>`
+  cards[0].insertAdjacentHTML('beforeEnd', modalHTML);
 }
