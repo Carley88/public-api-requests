@@ -2,13 +2,12 @@ const gallery = document.getElementById('gallery');
 const cards = document.getElementsByClassName('card');
 
 
-fetch("https://randomuser.me/api/?results=1&nat=us")
+fetch("https://randomuser.me/api/?results=12")
   .then(response => response.json())
   .then(data => {
     const employees = data.results
     employees.forEach((employee) => {
       generateGallery(employee);
-      generateModal(employee);
     });
     // const cards = document.querySelectorAll(".card");
     // cards.forEach(card => {
@@ -57,7 +56,3 @@ function generateModal(data){
     </div>`
   cards[0].insertAdjacentHTML('beforeEnd', modalHTML);
 }
-
-const dob = "1946-05-18T09:31:27.640Z";
-const regex = /^(\d{4})-(\d{2})-(\d{2})*/;
-console.log(dob.replace(/\T(.*)$/, '').replace(regex, '$2/$3/$1'));
