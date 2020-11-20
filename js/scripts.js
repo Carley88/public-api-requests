@@ -36,7 +36,10 @@ function generateGallery(data){
 }
 
 function generateModal(data){
-  const dob = data.dob.date
+  const dobRaw = data.dob.date
+  const timestampRegEx = /\T(.*)$/
+  const dateRegEx = /^(\d{4})-(\d{2})-(\d{2})*/
+  const dobFormatted = dobRaw.replace(timestampRegEx, '').replace(dateRegEx, '$2/$3/$1')
   const modalHTML = `
     <div class="modal-container">
       <div class="modal">
@@ -49,8 +52,12 @@ function generateModal(data){
               <hr>
               <p class="modal-text">${data.phone}</p>
               <p class="modal-text">${data.location.street.number} ${data.location.street.name}, ${data.location.state}, ${data.location.postcode}</p>
-              <p class="modal-text">Birthday: ${data.dob.date}</p>
+              <p class="modal-text">Birthday: ${dobFormatted}</p>
           </div>
     </div>`
   cards[0].insertAdjacentHTML('beforeEnd', modalHTML);
 }
+
+const dob = "1946-05-18T09:31:27.640Z";
+const regex = /^(\d{4})-(\d{2})-(\d{2})*/;
+console.log(dob.replace(/\T(.*)$/, '').replace(regex, '$2/$3/$1'));
