@@ -9,7 +9,18 @@ fetch("https://randomuser.me/api/?results=12")
       generateGallery(employee);
       generateModal(employee);
     });
-  });
+const cards = document.querySelectorAll(".card");
+const modals = document.querySelectorAll(".modal-container");
+cards.forEach(card => {
+  modals.forEach(modal => {
+    card.addEventListener('click', (event) => {
+      if(modal.dataset.id === event.currentTarget.id){
+        modal.style.display = '';
+        }
+      })
+    })
+  })
+});
 
 function generateGallery(data){
   const galleryHTML = `
