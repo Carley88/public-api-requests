@@ -7,6 +7,7 @@ fetch("https://randomuser.me/api/?results=12")
     const employees = data.results
     employees.forEach((employee) => {
       generateGallery(employee);
+      generateModal(employee);
     });
   });
 
