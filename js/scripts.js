@@ -8,13 +8,6 @@ fetch("https://randomuser.me/api/?results=12")
     employees.forEach((employee) => {
       generateGallery(employee);
     });
-    // const cards = document.querySelectorAll(".card");
-    // cards.forEach(card => {
-    //   card.addEventListener('click', (event) => {
-    //     console.log(event.target);
-    //     console.log(event.currentTarget.id);
-    //   })
-    // })
   });
 
 function generateGallery(data){
