@@ -34,6 +34,7 @@ function generateModal(data){
   const dobFormatted = dobRaw.replace(timestampRegEx, '').replace(dateRegEx, '$2/$3/$1')
   const modal = document.createElement('div');
   modal.className = 'modal-container';
+  modal.dataset.id = data.login.md5;
   gallery.appendChild(modal);
   const modalHTML = `
       <div class="modal">
