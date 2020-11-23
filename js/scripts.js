@@ -11,11 +11,15 @@ fetch("https://randomuser.me/api/?results=12")
     });
 const cards = document.querySelectorAll(".card");
 const modals = document.querySelectorAll(".modal-container");
+const button = document.getElementById('modal-close-btn');
 cards.forEach(card => {
   modals.forEach(modal => {
     card.addEventListener('click', (event) => {
       if(modal.dataset.id === event.currentTarget.id){
         modal.style.display = '';
+        button.addEventListener('click', () => {
+          modal.style.display = 'none';
+        });
         }
       })
     })
