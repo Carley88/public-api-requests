@@ -1,21 +1,14 @@
 const gallery = document.getElementById('gallery');
 const cards = document.getElementsByClassName('card');
 
-
 fetch("https://randomuser.me/api/?results=12")
   .then(response => response.json())
   .then(data => {
     const employees = data.results
     employees.forEach((employee) => {
       generateGallery(employee);
+      generateModal(employee);
     });
-    // const cards = document.querySelectorAll(".card");
-    // cards.forEach(card => {
-    //   card.addEventListener('click', (event) => {
-    //     console.log(event.target);
-    //     console.log(event.currentTarget.id);
-    //   })
-    // })
   });
 
 function generateGallery(data){
@@ -39,8 +32,10 @@ function generateModal(data){
   const timestampRegEx = /\T(.*)$/
   const dateRegEx = /^(\d{4})-(\d{2})-(\d{2})*/
   const dobFormatted = dobRaw.replace(timestampRegEx, '').replace(dateRegEx, '$2/$3/$1')
+  const modal = document.createElement('div');
+  modal.className = 'modal-container';
+  gallery.appendChild(modal);
   const modalHTML = `
-    <div class="modal-container">
       <div class="modal">
           <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
           <div class="modal-info-container">
@@ -52,7 +47,7 @@ function generateModal(data){
               <p class="modal-text">${data.phone}</p>
               <p class="modal-text">${data.location.street.number} ${data.location.street.name}, ${data.location.state}, ${data.location.postcode}</p>
               <p class="modal-text">Birthday: ${dobFormatted}</p>
-          </div>
-    </div>`
-  cards[0].insertAdjacentHTML('beforeEnd', modalHTML);
+      </div>`
+  modal.insertAdjacentHTML('beforeEnd', modalHTML);
+  modal.style.display = 'none';
 }
