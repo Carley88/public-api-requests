@@ -9,7 +9,18 @@ fetch("https://randomuser.me/api/?results=12")
       generateGallery(employee);
       generateModal(employee);
     });
-  });
+    const cards = document.getElementsByClassName("card");
+    const modals = document.getElementsByClassName("modal-container");
+    const buttons = document.getElementsByClassName('modal-close-btn');
+    for(let i = 0; i < cards.length; i++) {
+      cards[i].addEventListener('click', () => {
+        modals[i].style.display = '';
+        buttons[i].addEventListener('click', () => {
+          modals[i].style.display = 'none';
+        })
+      });
+    }
+});
 
 function generateGallery(data){
   const galleryHTML = `
@@ -34,6 +45,7 @@ function generateModal(data){
   const dobFormatted = dobRaw.replace(timestampRegEx, '').replace(dateRegEx, '$2/$3/$1')
   const modal = document.createElement('div');
   modal.className = 'modal-container';
+  modal.dataset.id = data.login.md5;
   gallery.appendChild(modal);
   const modalHTML = `
       <div class="modal">
