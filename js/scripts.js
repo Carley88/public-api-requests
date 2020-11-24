@@ -11,11 +11,11 @@ fetch("https://randomuser.me/api/?results=12")
     });
     const cards = document.getElementsByClassName("card");
     const modals = document.getElementsByClassName("modal-container");
-    const buttons = document.getElementsByClassName('modal-close-btn');
+    const closeButtons = document.getElementsByClassName('modal-close-btn');
     for(let i = 0; i < cards.length; i++) {
       cards[i].addEventListener('click', () => {
         modals[i].style.display = '';
-        buttons[i].addEventListener('click', () => {
+        closeButtons[i].addEventListener('click', () => {
           modals[i].style.display = 'none';
         })
       });
