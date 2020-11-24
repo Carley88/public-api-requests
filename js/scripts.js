@@ -51,7 +51,6 @@ function generateModal(data){
   gallery.appendChild(modal);
   const modalHTML = `
       <div class="modal">
-          <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
           <div class="modal-info-container">
               <img class="modal-img" src=${data.picture.large} alt="profile picture">
               <h3 id="name" class="modal-name cap">${data.name.first} ${data.name.last}</h3>
@@ -65,6 +64,7 @@ function generateModal(data){
       <div class="modal-btn-container">
           <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
           <button type="button" id="modal-next" class="modal-next btn">Next</button>
+          <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
       </div>`
   modal.insertAdjacentHTML('beforeEnd', modalHTML);
   modal.style.display = 'none';
