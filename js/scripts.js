@@ -15,10 +15,10 @@ fetch("https://randomuser.me/api/?results=12")
     for(let i = 0; i < cards.length; i++) {
       cards[i].addEventListener('click', () => {
         modals[i].style.display = '';
-        buttons[i].addEventListener('click', () => {
-          modals[i].style.display = 'none';
-        })
       });
+      buttons[i].addEventListener('click', () => {
+        modals[i].style.display = 'none';
+      })
     }
 });
 
