@@ -16,8 +16,18 @@ fetch("https://randomuser.me/api/?results=12")
       cards[i].addEventListener('click', () => {
         modals[i].style.display = '';
       });
-      buttons[i].addEventListener('click', () => {
-        modals[i].style.display = 'none';
+      buttons[i].addEventListener('click', (event) => {
+        if(event.target.className != 'modal-btn-container') {
+          if(event.target.className === 'modal-close-btn' || event.target.parentNode.className === 'modal-close-btn') {
+            modals[i].style.display = 'none';
+          } else if (event.target.className === 'modal-prev btn') {
+            modals[i].style.display = 'none';
+            modals[i-1].style.display = '';
+          } else if (event.target.className === 'modal-next btn') {
+            modals[i].style.display = 'none';
+            modals[i+1].style.display = '';
+          }
+        }
       })
     }
 });
