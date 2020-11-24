@@ -9,17 +9,7 @@ fetch("https://randomuser.me/api/?results=12")
       generateGallery(employee);
       generateModal(employee);
     });
-    const cards = document.getElementsByClassName("card");
-    const modals = document.getElementsByClassName("modal-container");
-    const buttons = document.getElementsByClassName('modal-close-btn');
-    for(let i = 0; i < cards.length; i++) {
-      cards[i].addEventListener('click', () => {
-        modals[i].style.display = '';
-        buttons[i].addEventListener('click', () => {
-          modals[i].style.display = 'none';
-        })
-      });
-    }
+    clickListeners();
 });
 
 function generateGallery(data){
@@ -49,7 +39,6 @@ function generateModal(data){
   gallery.appendChild(modal);
   const modalHTML = `
       <div class="modal">
-          <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
           <div class="modal-info-container">
               <img class="modal-img" src=${data.picture.large} alt="profile picture">
               <h3 id="name" class="modal-name cap">${data.name.first} ${data.name.last}</h3>
@@ -59,7 +48,40 @@ function generateModal(data){
               <p class="modal-text">${data.phone}</p>
               <p class="modal-text">${data.location.street.number} ${data.location.street.name}, ${data.location.state}, ${data.location.postcode}</p>
               <p class="modal-text">Birthday: ${dobFormatted}</p>
+      </div>
+      <div class="modal-btn-container">
+          <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+          <button type="button" id="modal-next" class="modal-next btn">Next</button>
+          <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
       </div>`
   modal.insertAdjacentHTML('beforeEnd', modalHTML);
   modal.style.display = 'none';
+}
+
+function clickListeners() {
+  const cards = document.getElementsByClassName("card");
+  const modals = document.getElementsByClassName("modal-container");
+  const buttons = document.getElementsByClassName('modal-btn-container');
+  const prevButtons = document.getElementsByClassName('modal-prev');
+  prevButtons[0].style.display = 'none';
+  const nextButtons = document.getElementsByClassName('modal-next');
+  nextButtons[nextButtons.length - 1].style.display = 'none';
+  for(let i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', () => {
+      modals[i].style.display = '';
+    });
+    buttons[i].addEventListener('click', (event) => {
+      if(event.target.className != 'modal-btn-container') {
+        if(event.target.className === 'modal-close-btn' || event.target.parentNode.className === 'modal-close-btn') {
+          modals[i].style.display = 'none';
+        } else if (event.target.className === 'modal-prev btn') {
+          modals[i].style.display = 'none';
+          modals[i-1].style.display = '';
+        } else if (event.target.className === 'modal-next btn') {
+          modals[i].style.display = 'none';
+          modals[i+1].style.display = '';
+        }
+      }
+    })
+  }
 }
