@@ -59,6 +59,10 @@ function generateModal(data){
               <p class="modal-text">${data.phone}</p>
               <p class="modal-text">${data.location.street.number} ${data.location.street.name}, ${data.location.state}, ${data.location.postcode}</p>
               <p class="modal-text">Birthday: ${dobFormatted}</p>
+      </div>
+      <div class="modal-btn-container">
+          <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+          <button type="button" id="modal-next" class="modal-next btn">Next</button>
       </div>`
   modal.insertAdjacentHTML('beforeEnd', modalHTML);
   modal.style.display = 'none';
