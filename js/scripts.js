@@ -9,31 +9,7 @@ fetch("https://randomuser.me/api/?results=12")
       generateGallery(employee);
       generateModal(employee);
     });
-    const cards = document.getElementsByClassName("card");
-    const modals = document.getElementsByClassName("modal-container");
-    const buttons = document.getElementsByClassName('modal-btn-container');
-    const prevButtons = document.getElementsByClassName('modal-prev');
-    prevButtons[0].style.display = 'none';
-    const nextButtons = document.getElementsByClassName('modal-next');
-    nextButtons[nextButtons.length - 1].style.display = 'none';
-    for(let i = 0; i < cards.length; i++) {
-      cards[i].addEventListener('click', () => {
-        modals[i].style.display = '';
-      });
-      buttons[i].addEventListener('click', (event) => {
-        if(event.target.className != 'modal-btn-container') {
-          if(event.target.className === 'modal-close-btn' || event.target.parentNode.className === 'modal-close-btn') {
-            modals[i].style.display = 'none';
-          } else if (event.target.className === 'modal-prev btn') {
-            modals[i].style.display = 'none';
-            modals[i-1].style.display = '';
-          } else if (event.target.className === 'modal-next btn') {
-            modals[i].style.display = 'none';
-            modals[i+1].style.display = '';
-          }
-        }
-      })
-    }
+    clickListeners();
 });
 
 function generateGallery(data){
@@ -80,4 +56,32 @@ function generateModal(data){
       </div>`
   modal.insertAdjacentHTML('beforeEnd', modalHTML);
   modal.style.display = 'none';
+}
+
+function clickListeners() {
+  const cards = document.getElementsByClassName("card");
+  const modals = document.getElementsByClassName("modal-container");
+  const buttons = document.getElementsByClassName('modal-btn-container');
+  const prevButtons = document.getElementsByClassName('modal-prev');
+  prevButtons[0].style.display = 'none';
+  const nextButtons = document.getElementsByClassName('modal-next');
+  nextButtons[nextButtons.length - 1].style.display = 'none';
+  for(let i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', () => {
+      modals[i].style.display = '';
+    });
+    buttons[i].addEventListener('click', (event) => {
+      if(event.target.className != 'modal-btn-container') {
+        if(event.target.className === 'modal-close-btn' || event.target.parentNode.className === 'modal-close-btn') {
+          modals[i].style.display = 'none';
+        } else if (event.target.className === 'modal-prev btn') {
+          modals[i].style.display = 'none';
+          modals[i-1].style.display = '';
+        } else if (event.target.className === 'modal-next btn') {
+          modals[i].style.display = 'none';
+          modals[i+1].style.display = '';
+        }
+      }
+    })
+  }
 }
