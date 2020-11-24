@@ -9,21 +9,17 @@ fetch("https://randomuser.me/api/?results=12")
       generateGallery(employee);
       generateModal(employee);
     });
-const cards = document.querySelectorAll(".card");
-const modals = document.querySelectorAll(".modal-container");
-const button = document.getElementById('modal-close-btn');
-cards.forEach(card => {
-  modals.forEach(modal => {
-    card.addEventListener('click', (event) => {
-      if(modal.dataset.id === event.currentTarget.id){
-        modal.style.display = '';
-        button.addEventListener('click', () => {
-          modal.style.display = 'none';
-        });
-        }
-      })
-    })
-  })
+    const cards = document.getElementsByClassName("card");
+    const modals = document.getElementsByClassName("modal-container");
+    const buttons = document.getElementsByClassName('modal-close-btn');
+    for(let i = 0; i < cards.length; i++) {
+      cards[i].addEventListener('click', () => {
+        modals[i].style.display = '';
+        buttons[i].addEventListener('click', () => {
+          modals[i].style.display = 'none';
+        })
+      });
+    }
 });
 
 function generateGallery(data){
