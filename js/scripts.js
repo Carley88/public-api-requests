@@ -14,7 +14,7 @@ fetch("https://randomuser.me/api/?results=12")
 
 function generateGallery(data){
   const galleryHTML = `
-    <div id=${data.login.md5} class="card">
+    <div id=${data.name.first}-${data.name.last} class="card">
         <div class="card-img-container">
             <img class="card-img" src=${data.picture.large} alt="profile picture">
         </div>
