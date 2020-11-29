@@ -10,11 +10,13 @@ fetch("https://randomuser.me/api/?results=12")
       generateModal(employee);
     });
     clickListeners();
+    generateSearchBar();
+
 });
 
 function generateGallery(data){
   const galleryHTML = `
-    <div id=${data.login.md5} class="card">
+    <div id=${data.name.first}-${data.name.last} class="card">
         <div class="card-img-container">
             <img class="card-img" src=${data.picture.large} alt="profile picture">
         </div>
@@ -84,4 +86,32 @@ function clickListeners() {
       }
     })
   }
+}
+
+function generateSearchBar() {
+  const searchHTML = `
+    <form action="#" method="get">
+        <input type="search" id="search-input" class="search-input" placeholder="Search...">
+        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+    </form>`
+  const searchDiv = document.querySelector('.search-container');
+  searchDiv.insertAdjacentHTML('beforeEnd', searchHTML);
+
+  const searchInput = document.getElementById('search-input')
+
+  searchDiv.addEventListener('keyup', (event) => {
+    event.preventDefault();
+    const input = searchInput.value.toLowerCase();
+
+    for(let i = 0; i < cards.length; i++) {
+      const employeeName = cards[i].id.replace(/-/, ' ').toLowerCase();
+      if(employeeName.includes(input)) {
+        cards[i].style.display = '';
+      } else if (employeeName.includes(input) === false) {
+        cards[i].style.display = 'none';
+      } else {
+        cards[i].style.display = '';
+      }
+    }
+  })
 }
