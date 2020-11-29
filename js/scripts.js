@@ -1,7 +1,7 @@
 const gallery = document.getElementById('gallery');
 const cards = document.getElementsByClassName('card');
 
-fetch("https://randomuser.me/api/?results=12")
+fetch("https://randomuser.me/api/?results=12&nat=us")
   .then(response => response.json())
   .then(data => {
     const employees = data.results
