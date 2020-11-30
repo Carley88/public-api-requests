@@ -1,6 +1,12 @@
 const gallery = document.getElementById('gallery');
 const cards = document.getElementsByClassName('card');
 
+/**
+API request fetches back 12 random people & their details from randomuser.me.
+I have filtered to only use US residents to make the formatting of my page simpler.
+Once the API has responded the generateGallery, generateModal, clickListeners and
+generateSearchBar functions are called.
+**/
 fetch("https://randomuser.me/api/?results=12&nat=us")
   .then(response => response.json())
   .then(data => {
@@ -11,9 +17,12 @@ fetch("https://randomuser.me/api/?results=12&nat=us")
     });
     clickListeners();
     generateSearchBar();
-
 });
 
+/**
+The generateModal function creates a card for each employee and then the data from
+the API request is used to populate the cards.
+**/
 function generateGallery(data){
   const galleryHTML = `
     <div id=${data.name.first}-${data.name.last} class="card">
@@ -25,19 +34,24 @@ function generateGallery(data){
             <p class="card-text">${data.email}</p>
             <p class="card-text cap">${data.location.city}, ${data.location.country}</p>
         </div>
-    </div>`
+    </div>`;
 
   gallery.insertAdjacentHTML('beforeEnd', galleryHTML);
 }
 
+/**
+The generateModal function creates a window for each employee with further details
+by using the data from the API request. RegEx is used to format the DOB to
+the American format. All of the windows are hidden & will be displayed individually
+when a user clicks on that employee's card.
+**/
 function generateModal(data){
-  const dobRaw = data.dob.date
+  const dobRaw = data.dob.date;
   const timestampRegEx = /\T(.*)$/
   const dateRegEx = /^(\d{4})-(\d{2})-(\d{2})*/
-  const dobFormatted = dobRaw.replace(timestampRegEx, '').replace(dateRegEx, '$2/$3/$1')
+  const dobFormatted = dobRaw.replace(timestampRegEx, '').replace(dateRegEx, '$2/$3/$1');
   const modal = document.createElement('div');
   modal.className = 'modal-container';
-  modal.dataset.id = data.login.md5;
   gallery.appendChild(modal);
   const modalHTML = `
       <div class="modal">
@@ -55,11 +69,18 @@ function generateModal(data){
           <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
           <button type="button" id="modal-next" class="modal-next btn">Next</button>
           <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-      </div>`
+      </div>`;
   modal.insertAdjacentHTML('beforeEnd', modalHTML);
   modal.style.display = 'none';
 }
 
+/**
+The clickListeners function firstly listens to which employee the user clicks on
+and brings up the detailed window for that employee.
+Once the window is open the click listener listens to the next & previous buttons
+and changes to the next/previous employee in the list. When at the start or end of
+the list the previous/next button is hidden.
+**/
 function clickListeners() {
   const cards = document.getElementsByClassName("card");
   const modals = document.getElementsByClassName("modal-container");
@@ -88,16 +109,21 @@ function clickListeners() {
   }
 }
 
+/**
+The generateSearchBar function creates a search bar in the top right hand corner.
+As the user types a word any employee's name who doesn't contain the letter sequence
+will be hidden from the page.
+**/
 function generateSearchBar() {
   const searchHTML = `
     <form action="#" method="get">
         <input type="search" id="search-input" class="search-input" placeholder="Search...">
         <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-    </form>`
+    </form>`;
   const searchDiv = document.querySelector('.search-container');
   searchDiv.insertAdjacentHTML('beforeEnd', searchHTML);
 
-  const searchInput = document.getElementById('search-input')
+  const searchInput = document.getElementById('search-input');
 
   searchDiv.addEventListener('keyup', (event) => {
     event.preventDefault();
