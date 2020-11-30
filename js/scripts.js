@@ -11,7 +11,6 @@ fetch("https://randomuser.me/api/?results=12&nat=us")
     });
     clickListeners();
     generateSearchBar();
-
 });
 
 function generateGallery(data){
@@ -25,16 +24,16 @@ function generateGallery(data){
             <p class="card-text">${data.email}</p>
             <p class="card-text cap">${data.location.city}, ${data.location.country}</p>
         </div>
-    </div>`
+    </div>`;
 
   gallery.insertAdjacentHTML('beforeEnd', galleryHTML);
 }
 
 function generateModal(data){
-  const dobRaw = data.dob.date
+  const dobRaw = data.dob.date;
   const timestampRegEx = /\T(.*)$/
   const dateRegEx = /^(\d{4})-(\d{2})-(\d{2})*/
-  const dobFormatted = dobRaw.replace(timestampRegEx, '').replace(dateRegEx, '$2/$3/$1')
+  const dobFormatted = dobRaw.replace(timestampRegEx, '').replace(dateRegEx, '$2/$3/$1');
   const modal = document.createElement('div');
   modal.className = 'modal-container';
   modal.dataset.id = data.login.md5;
@@ -55,7 +54,7 @@ function generateModal(data){
           <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
           <button type="button" id="modal-next" class="modal-next btn">Next</button>
           <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-      </div>`
+      </div>`;
   modal.insertAdjacentHTML('beforeEnd', modalHTML);
   modal.style.display = 'none';
 }
@@ -93,11 +92,11 @@ function generateSearchBar() {
     <form action="#" method="get">
         <input type="search" id="search-input" class="search-input" placeholder="Search...">
         <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-    </form>`
+    </form>`;
   const searchDiv = document.querySelector('.search-container');
   searchDiv.insertAdjacentHTML('beforeEnd', searchHTML);
 
-  const searchInput = document.getElementById('search-input')
+  const searchInput = document.getElementById('search-input');
 
   searchDiv.addEventListener('keyup', (event) => {
     event.preventDefault();
